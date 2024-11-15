@@ -1,0 +1,6 @@
+find_package(OpenGL REQUIRED)
+find_package(glfw3 REQUIRED)
+aux_source_directory(. IMGUI_SRC)
+add_library(imgui ${IMGUI_SRC})
+target_include_directories(imgui PUBLIC .)
+target_link_libraries(imgui PUBLIC OpenGL::GL glfw)

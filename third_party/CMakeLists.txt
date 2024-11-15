@@ -1,0 +1,3 @@
+add_subdirectory(imgui)
+add_subdirectory(ImGuiFileDialog)
+target_link_libraries(ImGuiFileDialog PUBLIC imgui)

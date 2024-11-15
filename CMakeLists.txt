@@ -1,0 +1,34 @@
+cmake_minimum_required(VERSION 3.20)
+
+project(SRUN_GUI VERSION 0.0.0 LANGUAGES CXX)
+
+set(SRUN_GUI_MAIN_PROJECT OFF)
+if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+  set(SRUN_GUI_MAIN_PROJECT ON)
+endif()
+
+if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
+    message(FATAL_ERROR "In-source builds are not allowed")
+endif()
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+
+find_package(OpenGL REQUIRED)
+find_package(glfw3 REQUIRED)
+find_package(srun REQUIRED)
+
+add_subdirectory(third_party)
+
+set(SRUN_GUI_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src/include)
+set(SRUN_GUI_LIBRARIES OpenGL::GL glfw srun::srun imgui ImGuiFileDialog)
+include_directories(${SRUN_GUI_INCLUDE_DIRS})
+link_libraries(${SRUN_GUI_LIBRARIES})
+
+add_subdirectory(src)
